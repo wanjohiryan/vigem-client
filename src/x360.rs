@@ -1,5 +1,4 @@
 use std::{fmt, mem, ptr};
-#[cfg(feature = "unstable_xtarget_notification")]
 use std::{marker, pin, thread};
 use std::borrow::Borrow;
 use winapi::um::xinput::XINPUT_GAMEPAD;
@@ -177,7 +176,6 @@ impl AsMut<XINPUT_GAMEPAD> for XGamepad {
 }
 
 /// XInput notification structure.
-#[cfg(feature = "unstable_xtarget_notification")]
 #[derive(Copy, Clone, Debug, Default, Eq, PartialEq, Hash)]
 #[repr(C)]
 pub struct XNotification {
@@ -187,14 +185,12 @@ pub struct XNotification {
 }
 
 /// XInput notification request.
-#[cfg(feature = "unstable_xtarget_notification")]
 pub struct XRequestNotification {
 	client: Client,
 	xurn: bus::RequestNotification<bus::XUsbRequestNotification>,
 	_unpin: marker::PhantomPinned,
 }
 
-#[cfg(feature = "unstable_xtarget_notification")]
 impl XRequestNotification {
 	/// Returns if the underlying target is still attached.
 	#[inline]
@@ -277,12 +273,9 @@ impl XRequestNotification {
 	}
 }
 
-#[cfg(feature = "unstable_xtarget_notification")]
 unsafe impl Sync for XRequestNotification {}
-#[cfg(feature = "unstable_xtarget_notification")]
 unsafe impl Send for XRequestNotification {}
 
-#[cfg(feature = "unstable_xtarget_notification")]
 impl fmt::Debug for XRequestNotification {
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
 		f.debug_struct("XRequestNotification")
@@ -292,7 +285,6 @@ impl fmt::Debug for XRequestNotification {
 	}
 }
 
-#[cfg(feature = "unstable_xtarget_notification")]
 impl Drop for XRequestNotification {
 	fn drop(&mut self) {
 		unsafe {
@@ -460,7 +452,6 @@ impl<CL: Borrow<Client>> Xbox360Wired<CL> {
 	///
 	/// Do not create more than one request notification per target.
 	/// Notifications may get lost or received by one or more listeners.
-	#[cfg(feature = "unstable_xtarget_notification")]
 	#[inline(never)]
 	pub fn request_notification(&mut self) -> Result<XRequestNotification, Error> {
 		if !self.is_attached() {
