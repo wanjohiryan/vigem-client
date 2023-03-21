@@ -21,7 +21,6 @@ pub const IOCTL_PLUGIN_TARGET: u32 = 0x2AA004; //IOCTL_BASE + 0x000;
 pub const IOCTL_UNPLUG_TARGET: u32 = 0x2AA008; //IOCTL_BASE + 0x001;
 pub const IOCTL_CHECK_VERSION: u32 = 0x2AA00C; //IOCTL_BASE + 0x002;
 pub const IOCTL_WAIT_DEVICE_READY: u32 = 0x2AA010; //IOCTL_BASE + 0x003;
-#[cfg(feature = "unstable_xtarget_notification")]
 pub const IOCTL_XUSB_REQUEST_NOTIFICATION : u32 = 0x2AE804; //IOCTL_BASE + 0x200 (RW);
 pub const IOCTL_XUSB_SUBMIT_REPORT: u32 = 0x2AA808; //IOCTL_BASE + 0x201;
 #[cfg(feature = "unstable_ds4")]
