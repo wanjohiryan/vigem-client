@@ -235,7 +235,6 @@ impl XUsbSubmitReport {
 	}
 }
 
-#[cfg(feature = "unstable_xtarget_notification")]
 #[repr(C)]
 pub struct XUsbRequestNotification {
 	pub Size: u32,
@@ -245,7 +244,6 @@ pub struct XUsbRequestNotification {
 	pub LedNumber: u8,
 }
 
-#[cfg(feature = "unstable_xtarget_notification")]
 impl XUsbRequestNotification {
 	#[inline]
 	pub const fn new(serial_no: u32) -> XUsbRequestNotification {
@@ -259,7 +257,6 @@ impl XUsbRequestNotification {
 	}
 }
 
-#[cfg(feature = "unstable_xtarget_notification")]
 #[repr(C)]
 pub struct RequestNotification<T> {
 	pub overlapped: OVERLAPPED,
@@ -267,7 +264,6 @@ pub struct RequestNotification<T> {
 }
 // Safety: This instance must have a stable address (eg. on the heap)
 // Required for non-blocking DeviceIoControl, see msdn.
-#[cfg(feature = "unstable_xtarget_notification")]
 impl<T> RequestNotification<T> {
 	#[inline]
 	pub fn new(buffer: T) -> RequestNotification<T> {
@@ -321,7 +317,6 @@ impl<T> RequestNotification<T> {
 		Ok(())
 	}
 }
-#[cfg(feature = "unstable_xtarget_notification")]
 impl<T> Drop for RequestNotification<T> {
 	fn drop(&mut self) {
 		unsafe { CloseHandle(self.overlapped.hEvent); }
